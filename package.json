@@ -15,5 +15,9 @@
     "dotenv": "^10.0.0",
     "mongoose": "=5.10.7",
     "restify": "=8.5.1"
-  }
+  },
+	"private": true,
+  "scripts": {
+		"start": "node index.js"
+	}
 }
