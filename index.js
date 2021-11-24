@@ -18,7 +18,7 @@ server
   })
 
   server.get('/index', function (req, res, next) {
-    res.send(JSON.stringify({info:success, code:200}))
+    res.send('success')
   })
 
 
