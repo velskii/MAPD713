@@ -1,23 +1,16 @@
 {
-  "name": "Group9-Milestone2",
-  "version": "3.0.0",
-  "description": "Group9 - Milestone3",
-  "main": "index.js",
-  "engines": {
-    "node": ">=4.1.1",
-    "npm": ">=2.1.x"
-  },
-  "authors": [
-    "Group9"
-  ],
-  "license": "MIT",
+  "name": "mapd713",
+  "version": "1.0.0",
+  "description": "Users API",
   "dependencies": {
-    "dotenv": "^10.0.0",
-    "mongoose": "=5.10.7",
-    "restify": "=8.5.1"
+      "restify": "4.1.1",
+  "save": "2.3.0"
+
   },
-	"private": true,
-  "scripts": {
-		"start": "node index.js"
-	}
+  "author": "Greg",
+"private": true,
+"main": "index.js",
+"scripts": {
+  "start": "node index.js"
+}
 }
