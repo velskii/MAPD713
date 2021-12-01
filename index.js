@@ -1,24 +1,10 @@
-var SERVER_NAME = 'test-api'
-var PORT = 80;
+const express = require('express')
+const path = require('path')
+const PORT = process.env.PORT || 5000
 
-
-var restify = require('restify')
-  , server = restify.createServer({ name: SERVER_NAME})
-
-  server.listen(PORT, function () {
-  console.log('Server %s listening at %s', server.name, server.url)
-})
-
-server
-  .use(restify.fullResponse())
-  .use(restify.bodyParser())
-
-  server.get('/', function (req, res, next) {
-    res.send(JSON.stringify({info:success, code:200}))
-  })
-
-  server.get('/index', function (req, res, next) {
-    res.send('success')
-  })
-
-
+express()
+  .use(express.static(path.join(__dirname, 'public')))
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs')
+  .get('/', (req, res) => res.render('pages/index'))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))

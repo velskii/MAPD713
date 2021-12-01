@@ -1,22 +1,31 @@
 {
-  "name": "Group9-Milestone3",
-  "version": "3.0.0",
-  "description": "Group9 - Milestone3",
-  "main": "index.js",
+  "name": "node-js-getting-started",
+  "version": "0.3.0",
+  "description": "A sample Node.js app using Express 4",
   "engines": {
-    "node": ">=4.1.1",
-    "npm": ">=2.1.x"
+    "node": "14.x"
   },
-  "authors": [
-    "Group9"
-  ],
-  "license": "MIT",
-  "dependencies": {
-    "dotenv": "^10.0.0",
-    "mongoose": "=5.10.7",
-    "restify": "=8.5.1"
-  },
+  "main": "index.js",
   "scripts": {
-    "start": "node index.js"
-  }
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "got": "^11.3.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroku/node-js-getting-started"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
 }
