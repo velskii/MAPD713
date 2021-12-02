@@ -21,15 +21,19 @@ router.use(function timeLog(req, res, next) {
 });
 
 
-// 6. Get records of one patient by his/her patient id
+// 6. Get a single patient records by their patient id
 router.get('/patients/:id/clinical-records', function (req, res, next) {
   console.log('GET request: /patients/' + req.params.id + '/clinical-records');
 
+  // Find a single patient by their id
   PatientRecords.find({ patientId: req.params.id }).exec(function (error, patientRecords) {
-    if (patientRecords) {
-      res.status(200).send(patientRecords)
+    if (patientRecords[0]) {
+      // Send the patient if no issues
+      res.send(patientRecords)
     } else {
-      res.status(404).send()
+      console.log('bbbb')
+      // Send 404 header if the patient doesn't exist
+      res.send(404)
     }
   })
 })
