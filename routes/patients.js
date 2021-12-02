@@ -40,7 +40,7 @@ router.get('/patients', function (req, res, next) {
 
     // Find a single patient by their id
     Patient.find({ _id: req.params.id }).exec(function (error, patient) {
-      if (patient) {
+      if (patient[0]) {
         // Send the patient if no issues
         res.status(200).send(patient)
       } else {
