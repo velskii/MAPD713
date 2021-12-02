@@ -22,7 +22,7 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 
-// 3. Get all patients in the system
+// 1. Get all patients in the system
 router.get('/patients', function (req, res, next) {
     console.log('GET request: patients');
     // Find every entity within the given collection
@@ -34,7 +34,7 @@ router.get('/patients', function (req, res, next) {
   })
 
 
-  // 4. Get a single patient by their patient id
+  // 2. Get a single patient by their patient id
   router.get('/patients/:id', function (req, res, next) {
     console.log('GET request: patients/' + req.params.id);
 
@@ -51,7 +51,7 @@ router.get('/patients', function (req, res, next) {
   })
 
 
-  // 5. Create a new patient
+  // 3. Create a new patient
 router.post('/patients', function (req, res, next) {
     console.log('POST request: patients params=>' + JSON.stringify(req.params));
     console.log('POST request: patients body=>' + JSON.stringify(req.body));
@@ -83,10 +83,10 @@ router.post('/patients', function (req, res, next) {
     })
 })
 
-  // 6. Delete a patient
- router.del('/patients/:patientId', function (req, res, next) {
+  // 4. Delete a patient
+ router.delete('/patients/:patientId', function (req, res, next) {
   console.log('DELETE request: /patients/' + req.params.patientId);
-  if (!req.params.patientId === undefined) {
+  if (!req.params.patientId) {
     return next(new errors.BadRequestError('patientId must be supplied'))
   }
 

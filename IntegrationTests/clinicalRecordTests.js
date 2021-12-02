@@ -14,7 +14,8 @@ var HOST = 'http://'+IP+':'+PORT;
 let patientIdStt200 = '6179c2450c1cd71d6a8c5e50'
 let patientIdStt404 = '6179c2450c1cd71d6a8c5e51'
 
-let patientIdStt201_21 = '61a91d024964d90016a0e258'
+let patientIdStt201_21 = '618c6394a5f3ac800f8bd9c4'
+let deletedClinicalRecords = '61a9523240658123cb2bbd4f'
 
 // 1.1. get clinical record of a patient -> status 200
 describe("when we issue a 'GET' to "+HOST+"/patients/:patientId/clinical-records", function(){
@@ -57,6 +58,32 @@ describe("when we issue a 'POST' to "+HOST+"/patients/:patientId/clinical-record
             })
             .end(function(req, res){
                 expect(res.status).to.equal(201);
+                done();
+            });
+    });
+});
+
+// 3.1. Delete a clinical record of a patient -> status 200
+describe("when we issue a 'DEL' to "+HOST+"/patients/:patientId/clinical-records/:clinicalRecordsId", function(){
+    it("should return HTTP 200", function(done) {
+        chai.request(HOST)
+            .delete('/patients/'+ patientIdStt201_21 + '/clinical-records/' + deletedClinicalRecords)
+            .query()
+            .end(function(req, res){
+                expect(res.status).to.equal(200);
+                done();
+            });
+    });
+});
+
+// 3.2. Delete a clinical record of a patient -> status 404
+describe("when we issue a 'DEL' to "+HOST+"/patients/:patientId/clinical-records/:clinicalRecordsId", function(){
+    it("should return HTTP 404", function(done) {
+        chai.request(HOST)
+            .delete('/patients/'+ patientIdStt201_21 + '/clinical-records/' + "")
+            .query()
+            .end(function(req, res){
+                expect(res.status).to.equal(404);
                 done();
             });
     });

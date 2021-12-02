@@ -21,7 +21,7 @@ router.use(function timeLog(req, res, next) {
 });
 
 
-// 6. Get a single patient records by their patient id
+// 1. Get a single patient records by their patient id
 router.get('/patients/:id/clinical-records', function (req, res, next) {
   console.log('GET request: /patients/' + req.params.id + '/clinical-records');
 
@@ -31,14 +31,13 @@ router.get('/patients/:id/clinical-records', function (req, res, next) {
       // Send the patient if no issues
       res.send(patientRecords)
     } else {
-      console.log('bbbb')
       // Send 404 header if the patient doesn't exist
-      res.send(404)
+      res.sendStatus(404)
     }
   })
 })
 
-// 7. Create a new clinical records' patient
+// 2. Create a new clinical records' patient
 router.post('/patients/:id/clinical-records', function (req, res, next) {
     console.log('POST request: /patients/:id/clinical-records params=>' + JSON.stringify(req.params.id));
     console.log('POST request: /patients/:id/clinical-records body=>' + JSON.stringify(req.body));
@@ -60,6 +59,19 @@ router.post('/patients/:id/clinical-records', function (req, res, next) {
       if (error) return next(new Error(JSON.stringify(error.errors)))
       res.status(201).send( result )
     })
+})
+
+ // 3. Delete a clinical record by patientId
+ router.delete('/patients/:patientId/clinical-records/:clinicalRecordsId', function (req, res, next) {
+  console.log('DELETE request: /patients/' + req.params.patientId + '/clinical-records/' + req.params.clinicalRecordsId);
+  if (!req.params.patientId && !req.params.clinicalRecordsId) {
+    return next(new errors.BadRequestError('patientId and clinicalRecordsId must be supplied'))
+  }
+
+  PatientRecords.deleteOne({ _id: req.params.clinicalRecordsId }, function (err) {
+    if (err) return next(new Error(JSON.stringify(err.errors)))
+    res.send(200, {msg:'delete a clinical record by patientId successfully'})
+  });
 })
 
 

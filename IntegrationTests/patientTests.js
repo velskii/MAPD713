@@ -14,7 +14,6 @@ var HOST = 'http://'+IP+':'+PORT;
 let patientId = '6179c2450c1cd71d6a8c5e50'
 let patientIdStt404 = '6179c2450c1cd71d6a8c5e51'
 let deletedPatient200 = '61a93d2a3bae1c1b691cf0e9'
-let patientIdNull = null
 
 
 // 1. get patient list -> status 200
