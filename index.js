@@ -25,17 +25,15 @@ db.once('open', function() {
 //config
 app.use(express.static('coverage'));
 var port = process.env.PORT || 8000;
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+var cors = require('cors')
+
+app.use(cors())
+
+app.use(express.json()) 
+app.use(express.urlencoded({ extended: true })) 
 
 
-app.use(
-      function crossOrigin(req,res,next){
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
-        return next();
-      }
-);
 //Routes
 app.use(require('./routes/users'));  
 app.use(require('./routes/tasks'));  
