@@ -98,13 +98,13 @@
    console.log('Resources:')
    console.log(' POST:  /users/register')
    console.log(' POST:  /users/login')
-   console.log(' GET:  /patients')
-   console.log(' POST: /patients')
-   console.log(' GET:  /patients/:id')
-   console.log(' GET:  /patients/:id/clinical-records')
-   console.log(' POST: /patients/:id/clinical-records')
-   console.log(' GET:  /users/:userId/tasks')
-   console.log(' GET;  /users/:userId/tasks/:id')
+   console.log(' GET:   /patients')
+   console.log(' POST:  /patients')
+   console.log(' GET:   /patients/:id')
+   console.log(' GET:   /patients/:id/clinical-records')
+   console.log(' POST:  /patients/:id/clinical-records')
+   console.log(' GET:   /users/:userId/tasks')
+   console.log(' GET;   /users/:userId/tasks/:id')
  })
  
  
@@ -313,7 +313,7 @@
        return next(new errors.BadRequestError('useId must be supplied'))
      }
      
-     // Creating new clinical records.
+     // Creating new task records.
      var newTasks = new Task({
        userId: req.params.userId,
        taskName: req.body.taskName,
@@ -335,9 +335,9 @@
      return next(new errors.BadRequestError('useId and taskId must be supplied'))
    }
  
-   Task.deleteOne({ taskId: req.params.taskId }, function (err) {
+   Task.deleteOne({ _id: req.params.taskId }, function (err) {
      if (err) return next(new Error(JSON.stringify(err.errors)))
-     res.send(200)
+     res.send({info:"delete successfully", code:200})
    });
  })
  
