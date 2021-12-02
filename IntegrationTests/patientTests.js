@@ -13,6 +13,8 @@ var HOST = 'http://'+IP+':'+PORT;
 
 let patientId = '6179c2450c1cd71d6a8c5e50'
 let patientIdStt404 = '6179c2450c1cd71d6a8c5e51'
+let deletedPatient200 = '61a93d2a3bae1c1b691cf0e9'
+let patientIdNull = null
 
 
 // 1. get patient list -> status 200
@@ -30,7 +32,7 @@ describe("when we issue a 'GET' to "+HOST+"/patients ", function(){
 describe("when we issue a 'GET' to "+HOST+"/patients/:id ", function(){
     it("should return HTTP 200", function(done) {
         chai.request(HOST)
-            .get('/patients/'+patientId)
+            .get('/patients/'+ patientId)
             .query()
             .end(function(req, res){
                 expect(res.status).to.equal(200);
@@ -42,7 +44,7 @@ describe("when we issue a 'GET' to "+HOST+"/patients/:id ", function(){
 describe("when we issue a 'GET' to "+HOST+"/patients/:id ", function(){
     it("should return HTTP 404", function(done) {
         chai.request(HOST)
-            .get('/patients/'+patientIdStt404)
+            .get('/patients/'+ patientIdStt404)
             .query()
             .end(function(req, res){
                 expect(res.status).to.equal(404);
@@ -72,3 +74,30 @@ describe("when we issue a 'POST' to "+HOST+"/patients", function(){
             });
     });
 });
+
+//4.1. delete a patient -> status 200
+describe("when we issue a 'DEL' to "+HOST+"/patients/:patientId", function(){
+    it("should return HTTP 200", function(done) {
+        chai.request(HOST)
+            .delete('/patients/'+ deletedPatient200)
+            .query()
+            .end(function(req, res){
+                expect(res.status).to.equal(200);
+                done();
+            });
+    });
+});
+
+// 4.2. delete a patient (patientId not found) -> status 400
+describe("when we issue a 'DEL' to "+HOST+"/patients/:patientId", function(){
+    it("should return HTTP 400", function(done) {
+        chai.request(HOST)
+            .delete('/patients/' + "")
+            .query()
+            .end(function(req, res){
+                expect(res.status).to.equal(400);
+                done();
+            });
+    });
+});
+

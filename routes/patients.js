@@ -83,5 +83,18 @@ router.post('/patients', function (req, res, next) {
     })
 })
 
+  // 6. Delete a patient
+ router.del('/patients/:patientId', function (req, res, next) {
+  console.log('DELETE request: /patients/' + req.params.patientId);
+  if (!req.params.patientId === undefined) {
+    return next(new errors.BadRequestError('patientId must be supplied'))
+  }
+
+  Patient.deleteOne({ _id: req.params.patientId }, function (err) {
+    if (err) return next(new Error(JSON.stringify(err.errors)))
+    res.send(200, {msg:'delete patient successfully'})
+  });
+})
+
 
 module.exports = router;
