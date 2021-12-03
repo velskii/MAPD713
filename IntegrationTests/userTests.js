@@ -11,7 +11,7 @@ var IP = process.env.IP;
 var HOST = 'http://'+IP+':'+PORT
 
 
-// register 
+// register -> 200
 describe("when we issue a 'POST' to "+HOST+"/users/register ", function(){
     it("should return HTTP 200", function(done) {
         chai.request(HOST)
@@ -29,7 +29,7 @@ describe("when we issue a 'POST' to "+HOST+"/users/register ", function(){
     });
 });
 
-// login 
+// login -> 200
 describe("when we issue a 'POST' to "+HOST+"/users/login ", function(){
     it("should return HTTP 200", function(done) {
         chai.request(HOST)
@@ -45,6 +45,21 @@ describe("when we issue a 'POST' to "+HOST+"/users/login ", function(){
             });
     });
 });
+
+// login -> 400 no parameters
+describe("when we issue a 'POST' to "+HOST+"/users/login ", function(){
+    it("should return HTTP 400", function(done) {
+        chai.request(HOST)
+            .post('/users/login')
+            .type('form')
+            .send({})
+            .end(function(req, res){
+                expect(res.status).to.equal(400);
+                done();
+            });
+    });
+});
+
 
 // users list 
 describe("when we issue a 'GET' to "+HOST+"/users ", function(){

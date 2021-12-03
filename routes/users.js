@@ -17,7 +17,7 @@ var userSchema = new mongoose.Schema({
 var User = mongoose.model('User', userSchema);
 
 //Middle ware that is specific to this router
-router.use(function timeLog(req, res, next) {
+router.use(function timeLog(error, req, res, next) {
   console.log('Time: ', Date.now());
   next();
 });
@@ -27,13 +27,13 @@ router.post('/users/register', function (req, res, next) {
     console.log('POST request: /users/register');
     console.log(req.body)
     if (req.body.userName === undefined) {
-      throw new Error('userName must be supplied')
+      res.status(400).send('userName must be supplied')
     }
     if (req.body.password === undefined) {
-      throw new Error('password must be supplied')
+      res.status(400).send('password must be supplied')
     }
     if (req.body.position === undefined) {
-      throw new Error('position must be supplied')
+      res.status(400).send('position must be supplied')
     }
   
     let date_ob = new Date();
@@ -59,18 +59,15 @@ router.post('/users/register', function (req, res, next) {
   // 2. login the system
   router.post('/users/login', function (req, res, next) {
     console.log('POST request: /users/login');
-    if (req.body === undefined) {
-      throw new Error('empty parameters')
-    } 
   
     if (req.body.userName === undefined) {
-      throw new Error('userName must be supplied')
+      res.status(400).send('userName must be supplied')
     }
     if (req.body.password === undefined) {
-      throw new Error('password must be supplied')
+      res.status(400).send('password must be supplied')
     }
     User.find({userName:req.body.userName,password:req.body.password}).exec(function (error, result) {
-      if (error) return next(new Error(JSON.stringify(error.errors)))
+      if (error) res.status(401).send('username or password not right')
       res.status(200).send(result);
     });
   })
