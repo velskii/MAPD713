@@ -87,7 +87,7 @@ describe("when we issue a 'DEL' to "+HOST+"/patients/:patientId", function(){
     });
 });
 
-// 4.2. delete a patient (patientId not found) -> status 400
+// 4.2. delete a patient (patientId not found) -> status 404
 describe("when we issue a 'DEL' to "+HOST+"/patients/:patientId", function(){
     it("should return HTTP 404", function(done) {
         chai.request(HOST)
