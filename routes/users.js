@@ -1,3 +1,9 @@
+/**
+ * Group 9 - Milestone 4
+ * 1. Quoc Phong Ngo - Student ID: 301148406
+ * 2. Feiliang Zhou  - Student ID: 301216989
+ * Date created: December 2, 2021
+ */
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
