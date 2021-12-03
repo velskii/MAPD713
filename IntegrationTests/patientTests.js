@@ -75,28 +75,28 @@ describe("when we issue a 'POST' to "+HOST+"/patients", function(){
 });
 
 //4.1. delete a patient -> status 200
-// describe("when we issue a 'DEL' to "+HOST+"/patients/:patientId", function(){
-//     it("should return HTTP 200", function(done) {
-//         chai.request(HOST)
-//             .delete('/patients/'+ deletedPatient200)
-//             .query()
-//             .end(function(req, res){
-//                 expect(res.status).to.equal(200);
-//                 done();
-//             });
-//     });
-// });
+describe("when we issue a 'DEL' to "+HOST+"/patients/:patientId", function(){
+    it("should return HTTP 200", function(done) {
+        chai.request(HOST)
+            .delete('/patients/'+ deletedPatient200)
+            .query()
+            .end(function(req, res){
+                expect(res.status).to.equal(200);
+                done();
+            });
+    });
+});
 
 // 4.2. delete a patient (patientId not found) -> status 400
-// describe("when we issue a 'DEL' to "+HOST+"/patients/:patientId", function(){
-//     it("should return HTTP 404", function(done) {
-//         chai.request(HOST)
-//             .delete('/patients/' + "")
-//             .query()
-//             .end(function(req, res){
-//                 expect(res.status).to.equal(404);
-//                 done();
-//             });
-//     });
-// });
+describe("when we issue a 'DEL' to "+HOST+"/patients/:patientId", function(){
+    it("should return HTTP 404", function(done) {
+        chai.request(HOST)
+            .delete('/patients/' + "")
+            .query()
+            .end(function(req, res){
+                expect(res.status).to.equal(404);
+                done();
+            });
+    });
+});
 

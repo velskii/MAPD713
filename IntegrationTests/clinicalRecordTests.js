@@ -14,8 +14,8 @@ var HOST = 'http://'+IP+':'+PORT;
 let patientIdStt200 = '6179c2450c1cd71d6a8c5e50'
 let patientIdStt404 = '6179c2450c1cd71d6a8c5e51'
 
-let patientIdStt201_21 = '618c6394a5f3ac800f8bd9c4'
-let deletedClinicalRecords = '61a9523240658123cb2bbd4f'
+let patientIdStt201_21 = '61a988e495b28804125f5c93'
+let deletedClinicalRecords = '61a9891195b28804125f5c94'
 
 // 1.1. get clinical record of a patient -> status 200
 describe("when we issue a 'GET' to "+HOST+"/patients/:patientId/clinical-records", function(){
