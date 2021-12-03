@@ -7,13 +7,12 @@
 
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser')
+var cors = require('cors')
 var mongoose = require('mongoose');
 const dotenv = require("dotenv")
 dotenv.config()
 
 // database
-var database_url = process.env.MONGODB_URI;
 var database_url = process.env.MONGODB_URI;
 mongoose.connect(database_url, {useNewUrlParser: true});
 const db = mongoose.connection;
@@ -23,13 +22,8 @@ db.once('open', function() {
 });
 
 //config
-app.use(express.static('coverage'));
 var port = process.env.PORT || 8000;
-
-var cors = require('cors')
-
 app.use(cors())
-
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true })) 
 

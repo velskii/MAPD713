@@ -59,9 +59,11 @@ router.delete('/users/:userId/tasks/:taskId', function (req, res, next) {
     }
 
     Task.deleteOne({ _id: req.params.taskId }, function (err) {
-        if (err) throw new Error(JSON.stringify(err.errors))
-
-        res.status(200).send( {msg:'delete successfully'} )
+        if (err) {
+          res.status(400).send( {msg:err} )
+        } else {
+          res.status(200).send( {msg:'delete successfully'} )
+        }
     });
 })
 
@@ -80,13 +82,10 @@ router.delete('/users/:userId/tasks/:taskId', function (req, res, next) {
   router.get('/users/:userId/tasks/:id', function (req, res, next) {
     console.log('GET request: /users/'+ req.params.userId +'/tasks/'+ req.params.id);
     Task.find({ _id: req.params.id }).exec(function (error, task) {
-      if (error) return next(new Error(JSON.stringify(error.errors)))
       if (task) {
-        // Send the task if no issues
         res.send(task)
       } else {
-        // Send 404 header if the task doesn't exist
-        res.send(404)
+        res.status(404).send(error)
       }
     })
   })
