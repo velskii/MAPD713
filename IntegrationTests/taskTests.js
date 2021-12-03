@@ -66,7 +66,7 @@ describe("when we issue a 'GET' to "+HOST+"/users/:userId/tasks/:id ", function(
 });
 
 // delete a task of a user 
-describe("when we issue a 'GET' to "+HOST+"/users/:userId/tasks/:taskId ", function(){
+describe("when we issue a 'DELETE' to "+HOST+"/users/:userId/tasks/:taskId ", function(){
     it("should return HTTP 200", function(done) {
         chai.request(HOST)
             .delete('/users/'+userId+'/tasks/'+taskId)
@@ -80,7 +80,7 @@ describe("when we issue a 'GET' to "+HOST+"/users/:userId/tasks/:taskId ", funct
 
 // delete a task of a user -> 400
 describe("when we issue a 'DELETE' to "+HOST+"/users/:userId/tasks/:taskId ", function(){
-    it("should return HTTP 200", function(done) {
+    it("should return HTTP 400", function(done) {
         chai.request(HOST)
             .delete('/users/'+userId+'/tasks/'+taskIdStt400)
             .query()
