@@ -1,0 +1,28 @@
+Title: New Task: POST request to create one task
+User->Web API: Http Request
+
+Note right of User:  POST {token,taskName,time,status}\n/users/:userId/tasks
+
+Web API->Data Access: (1)Authentication\n{userId,token}
+
+Data Access->DB: select by \nuserId and token
+
+DB->Data Access: not exist
+
+Data Access->Web API: token not right
+
+Web API->User: Http Response
+
+Note right of User:  {401}
+
+Web API->Data Access: (2)Create data\n{userId,taskName,\ntime,status}
+
+Data Access->DB: Create One Item
+
+DB->Data Access: Done
+
+Data Access->Web API: Creation success
+
+Web API->User: Http Response
+
+Note right of User:  {200}

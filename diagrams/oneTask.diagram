@@ -1,0 +1,16 @@
+Title: One Task: GET request to one task of one user
+User->Web API: Http Request
+
+Note right of User:  GET \n/users/:userId/tasks/:taskId
+
+Web API->Data Access: {userId,taskId}
+
+Data Access->DB: select from tasks \nBy userId and taskId
+
+DB->Data Access: Data
+
+Data Access->Web API: Data
+
+Web API->User: Http Response
+
+Note right of User:  {200,data}

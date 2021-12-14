@@ -9,6 +9,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 const dotenv = require("dotenv")
 dotenv.config()
+const auth = require('../Middleware/auth');
 
 // database
 var taskSchema = new mongoose.Schema({
@@ -75,7 +76,7 @@ router.delete('/users/:userId/tasks/:taskId', function (req, res, next) {
 
 
   // 8. Get all tasks of a user
-  router.get('/users/:userId/tasks', function (req, res, next) {
+  router.get('/users/:userId/tasks', auth, function (req, res, next) {
     console.log('GET request: /users/'+req.params.userId+'/tasks/');
     // Find every entity within the given collection
     Task.find({userId: req.params.userId }).exec(function (error, result) {
@@ -87,7 +88,7 @@ router.delete('/users/:userId/tasks/:taskId', function (req, res, next) {
   // 9. Get one task of a user
   router.get('/users/:userId/tasks/:id', function (req, res, next) {
     console.log('GET request: /users/'+ req.params.userId +'/tasks/'+ req.params.id);
-    Task.find({ _id: req.params.id }).exec(function (error, task) {
+    Task.findOne({ _id: req.params.id }).exec(function (error, task) {
       if (task) {
         res.send(task)
       } else {
@@ -95,6 +96,50 @@ router.delete('/users/:userId/tasks/:taskId', function (req, res, next) {
       }
     })
   })
+ 
+
+  router.put('/users/:userId/tasks/:id', auth, function (req, res, next) {
+    console.log('POST request: /users/'+ req.params.userId +'/tasks/'+ req.params.id);
+
+    
+      // if (req.params.token === undefined) {
+      //   res.status(401).send('token must supplied')
+      // }
+      // User.findOne({userId, login_token}).exec(function (error, result) {
+      //   if (error) res.status(401).send('token not right')
+      //   next();
+      // });
+
+    if (req.body.taskName === undefined) {
+      throw new Error('taskName must be supplied')
+    }
+    if (req.body.time === undefined) {
+      throw new Error('time must be supplied')
+    }
+    if (req.body.status === undefined) {
+      throw new Error('status must be supplied')
+    }
+
+    Task.findOne({ _id: req.params.id }).exec(function (error, task) {
+      if (task) {
+        task.overwrite({
+          taskName:  req.body.taskName,
+          time: req.body.time,
+          status: req.body.status,
+        })
+
+        task.save(function (error, result) {
+          if (error) return next("saving failed")
+      
+          res.status(200).send(result)
+        })
+
+      } else {
+        res.status(404).send(error)
+      }
+    })
+  })
+
 
 
 

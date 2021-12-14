@@ -1,0 +1,16 @@
+Title: Update One Task: PUT request to update one task
+User->Web API: Http Request
+
+Note right of User:  PUT{taskName,time,status} \n/users/:userId/tasks/:taskId
+
+Web API->Data Access: {taskId,taskName,time,status}
+
+Data Access->DB: (1)findOne from tasks \nWhere taskId \n(2)update data
+
+DB->Data Access: Update successfully
+
+Data Access->Web API: Signal of success
+
+Web API->User: Http Response
+
+Note right of User:  {200}

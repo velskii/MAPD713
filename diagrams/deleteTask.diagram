@@ -1,0 +1,16 @@
+Title: Delete One Task: DELETE request to delete one task of one user
+User->Web API: Http Request
+
+Note right of User:  DELETE \n/users/:userId/tasks/:taskId
+
+Web API->Data Access: {userId,taskId}
+
+Data Access->DB: delete from tasks \nWhere userId and taskId
+
+DB->Data Access: Delete successfully
+
+Data Access->Web API: Signal of success
+
+Web API->User: Http Response
+
+Note right of User:  {200}

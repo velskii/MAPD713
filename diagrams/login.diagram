@@ -1,0 +1,16 @@
+Title: Login: POST request to check one user
+User->Web API: Http Request
+
+Note right of User:  POST {username,password}\n/users/login
+
+Web API->Data Access: {username,password}
+
+Data Access->DB: Fetch One Item
+
+DB->Data Access: Done
+
+Data Access->Web API: exists or not
+
+Web API->User: Http Response
+
+Note right of User:  {200}

@@ -1,0 +1,16 @@
+Title: Register: POST request to create one user
+User->Web API: Http Request
+
+Note right of User:  POST {username,password,position}\n/users/register
+
+Web API->Data Access: {username,password,\nposition,created_time}
+
+Data Access->DB: Create One Item
+
+DB->Data Access: Done
+
+Data Access->Web API: Create Success
+
+Web API->User: Http Response
+
+Note right of User:  {200}

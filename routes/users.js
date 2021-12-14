@@ -9,6 +9,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 const dotenv = require("dotenv")
 dotenv.config()
+var jwt = require('jsonwebtoken');
 
 const tools = require("../utils/tools");
 // database
@@ -46,14 +47,17 @@ router.post('/users/register', function (req, res, next) {
     let date = ("0" + date_ob.getDate()).slice(-2);
     let month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
     let year = date_ob.getFullYear();
-  
+    
+    let userId = Math.floor(Math.random() * 1000 + 1);
+
     var newUser = new User({
-      userId: Math.floor(Math.random() * 1000 + 1), 
+      userId: userId, 
       userName: req.body.userName, 
       password: req.body.password,
       position: req.body.position,
       created_time: year + "-" + month + "-" + date,
-      login_token: tools.generateToken(10),
+      // login_token: tools.generateToken(10),
+      login_token: jwt.sign({ userId: userId }, 'MAPD713'),
     });
   
     newUser.save(function (error, result) {
