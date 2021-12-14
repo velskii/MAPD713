@@ -67,7 +67,7 @@ router.post('/patients/:id/clinical-records', function (req, res, next) {
     })
 })
 
- // 3. Delete a clinical record by patientId
+ // 3. Delete a clinical record by clinical record Id
  router.delete('/patients/:patientId/clinical-records/:clinicalRecordsId', function (req, res, next) {
   console.log('DELETE request: /patients/' + req.params.patientId + '/clinical-records/' + req.params.clinicalRecordsId);
   if (!req.params.patientId && !req.params.clinicalRecordsId) {
@@ -78,6 +78,41 @@ router.post('/patients/:id/clinical-records', function (req, res, next) {
     if (err) return next(new Error(JSON.stringify(err.errors)))
     res.send(200, {msg:'delete a clinical record by patientId successfully'})
   });
+})
+
+// 4. Update a clinical record by clinical record Id
+ router.put('/patients/:patientId/clinical-records/:clinicalRecordsId', function (req, res, next) {
+  console.log('PUT request: /patients/' + req.params.patientId + '/clinical-records/' + req.params.clinicalRecordsId);
+  if (!req.params.patientId && !req.params.clinicalRecordsId) {
+    return next(new errors.BadRequestError('patientId and clinicalRecordsId must be supplied'))
+  }
+
+  const filter = { _id: req.params.clinicalRecordsId };
+  const update = {bloodPressure: req.body.bloodPressure, respiratoryRate: req.body.respiratoryRate, 
+    bloodOxygenLevel: req.body.bloodOxygenLevel, heartBeatRate: req.body.heartBeatRate};
+  
+ 
+  PatientRecords.findOne(filter, function(err, clinicalRecords) {
+    if(!err) {
+        if(!clinicalRecords) {
+            res.sendStatus(404)
+        }
+        clinicalRecords.bloodPressure = req.body.bloodPressure;
+        clinicalRecords.respiratoryRate = req.body.respiratoryRate;
+        clinicalRecords.bloodOxygenLevel = req.body.bloodOxygenLevel;
+        clinicalRecords.heartBeatRate = req.body.heartBeatRate;
+
+        clinicalRecords.save(function(err) {
+            if(!err) {
+                res.send(200, {msg:'update a clinical record by patientId successfully'})
+            }
+            else {
+                return next(new Error(JSON.stringify(err.errors)))
+            }
+        });
+      }
+  });
+
 })
 
 
