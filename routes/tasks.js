@@ -76,7 +76,7 @@ router.delete('/users/:userId/tasks/:taskId', function (req, res, next) {
 
 
   // 8. Get all tasks of a user
-  router.get('/users/:userId/tasks', auth, function (req, res, next) {
+  router.get('/users/:userId/tasks', function (req, res, next) {
     console.log('GET request: /users/'+req.params.userId+'/tasks/');
     // Find every entity within the given collection
     Task.find({userId: req.params.userId }).exec(function (error, result) {
@@ -98,17 +98,8 @@ router.delete('/users/:userId/tasks/:taskId', function (req, res, next) {
   })
  
 
-  router.put('/users/:userId/tasks/:id', auth, function (req, res, next) {
-    console.log('POST request: /users/'+ req.params.userId +'/tasks/'+ req.params.id);
-
-    
-      // if (req.params.token === undefined) {
-      //   res.status(401).send('token must supplied')
-      // }
-      // User.findOne({userId, login_token}).exec(function (error, result) {
-      //   if (error) res.status(401).send('token not right')
-      //   next();
-      // });
+  router.put('/users/:userId/tasks/:id', function (req, res, next) {
+    console.log('PUT request: /users/'+ req.params.userId +'/tasks/'+ req.params.id);
 
     if (req.body.taskName === undefined) {
       throw new Error('taskName must be supplied')
@@ -123,6 +114,7 @@ router.delete('/users/:userId/tasks/:taskId', function (req, res, next) {
     Task.findOne({ _id: req.params.id }).exec(function (error, task) {
       if (task) {
         task.overwrite({
+          userId: req.params.userId,
           taskName:  req.body.taskName,
           time: req.body.time,
           status: req.body.status,
